@@ -28,11 +28,6 @@ a {
     transition: 0.2s;
 }
 
-    a:hover {
-        background-color: #f0f0f0;
-        color: #303030;
-    }
-
 ::selection {
     color: #303030;
     background: #f0f0f0;
