@@ -1,0 +1,75 @@
+
+body {
+    margin: 20px;
+    font-size: 17px;
+    max-width: 1834px;
+}
+
+img {
+    width: 100%;
+}
+
+ul {
+    position: relative;
+    list-style-type: bengali;
+    margin-top: -10px;
+    margin-left: -20px;
+}
+
+#header {
+    width: 600px;
+    margin: auto;
+    margin-bottom: 40px;
+}
+
+#card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 13px;
+}
+
+.project-card {
+    max-width: 460px;
+    max-height: 400px;
+}
+
+.card-description {
+    padding: 10px;
+}
+
+#other-proj-container {
+    display: flex;
+    justify-content: center;
+}
+
+#inner-container {
+    width: 600px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.styled-table td {
+    padding: 8px 14px 14px 0;
+    text-align: left;
+    /*border: 1px solid #ddd;
+    vertical-align: top*/
+}
+
+.styled-table td:nth-child(2) {
+    text-align: right;
+    width: 140px;
+}
+
+.styled-table td:nth-child(3) {
+    text-align: right;
+    width: 60px;
+}
+
+.project-name {
+    font-weight: bold;
+}

@@ -1,99 +1,60 @@
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-const width = 330.;
-const height = 330.;
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+const width = 330.0;
+const height = 330.0;
 
 renderer.setSize(width, height);
-//renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Create a plane to apply the shader
 const geometry = new THREE.PlaneGeometry(2, 2); // Plane covers the entire view
 
-// vertex shader outputs vertex positions in clip space. outputs xyz and w for perspective division (?)
+// Optimized vertex shader (no changes needed here)
 const vertexShader = `
     void main() {
         gl_Position = vec4(position, 1.0);
     }
 `;
 
-// frag shader calculates pixel color, running for each in parallel. outputs rbga (vec4).
+// Optimized fragment shader
 const fragmentShader = `
     uniform float u_time;
     uniform float u_height;
     uniform float u_width;
 
-    const int MAX_STEPS = 70;
-    const float MAX_DIST = 100.0;
-    const float SURF_DIST_MARGIN = .01;
+    #define PI 3.14159265358979323846
+    #define MAX_ITERATIONS 100.0
+    #define ESCAPE_RADIUS_SQUARED 4.0
 
-    //struct Sphere {
-    //    vec3 pos;
-    //    float radius;
-    //    vec3 col;
-    //}
-
-    //Sphere MakeSphere(vec3 pos, float radius, vec3 col) {
-    //    Sphere mySphere;
-    //    mySphere.pos = pos;
-    //    mySphere.radius = radius;
-    //    mySphere.col = col;
-    //    return mySphere;
-    //}
-
-    float getDistFromSceneObjs(vec3 pos) {
-        vec4 sphere = vec4(0, 1.45, 4.5, 1);
-
-        float distFromSphereOrigin = length(pos - sphere.xyz) - sphere.w;
-        float distFromPlane = pos.y;
-
-        float dist = min(distFromSphereOrigin, distFromPlane);
-        return dist;
-    }
-
-    float rayMarch(vec3 rayOrigin, vec3 rayDir) {
-        float distOffset = 0.0;
-
-        for(int i=0; i<MAX_STEPS; i++) {
-            vec3 currentPos = rayOrigin + rayDir * distOffset;
-            float distToSurface = getDistFromSceneObjs(currentPos);
-            distOffset += distToSurface;
-
-            if (distOffset > MAX_DIST || distToSurface < SURF_DIST_MARGIN) break;
-        }
-
-        return distOffset;
+    vec2 squareC(vec2 c) {
+        return vec2(c.x * c.x - c.y * c.y, 2.0 * c.x * c.y);
     }
 
     void main() {
-        vec2 uv = vec2((gl_FragCoord.x / u_width)-.5, (gl_FragCoord.y / u_height)-.5);
+        // Compute the normalized screen coordinates (from -0.5 to 0.5)
+        vec2 uv = (gl_FragCoord.xy / vec2(u_width, u_height)) - 0.5;
+        vec2 coordsC = uv * 0.8; // Apply zoom (adjust as needed)
 
-        vec3 rayOrigin = vec3(0, 1.3, 0);
-        vec3 rayDir = normalize(vec3(uv.x, uv.y, 1));
-        /* z is depth, x width, y height naturally. So these vectors are angled based on the current
-        screencoords */
+        // Initialize the Mandelbrot calculation
+        vec2 num = coordsC;
+        float oscillator = 0.015 * sin(u_time / 3.0 - PI / 2.0) + 0.56;
+        float c = -oscillator;
 
-        float distToSurf = rayMarch(rayOrigin, rayDir);
-        vec3 hitPoint = rayOrigin + rayDir * distToSurf;
+        float i;
+        for (i = 0.0; i < MAX_ITERATIONS; i++) {
+            num = squareC(num) + c;
+            if (dot(num, num) > ESCAPE_RADIUS_SQUARED) break;
+        }
 
-        //float oscillating = 0.5 * (sin(iTime) + 1.); // oscillates smoothly between 0 and 1
-
-        float distFromCam = length(hitPoint - rayOrigin);
-        float scaledDistFromCam = distFromCam / 11.2;
-
-        //col = vec3(scaledDistFromCam, .5, .8);
-
-        scaledDistFromCam = distFromCam;
-        vec3 col = vec3(sin(scaledDistFromCam-(u_time/1.4)), 0.3, 0.5);
-        //vec3 col = vec3(1, 0.5, 1); 
-
+        // Color based on the number of iterations (smoothstep for better anti-aliasing)
+        float val = smoothstep(0.0, 1.0, i / MAX_ITERATIONS);
+        vec3 col = vec3(val, 0.2 + (val / 9.0), 0.3);
         gl_FragColor = vec4(col, 1.0);
     }
-
-
 `;
 
+// Shader material with uniforms
 const shaderMaterial = new THREE.ShaderMaterial({
     vertexShader: vertexShader,
     fragmentShader: fragmentShader,
@@ -104,17 +65,25 @@ const shaderMaterial = new THREE.ShaderMaterial({
     }
 });
 
+// Create a plane mesh and add it to the scene
 const plane = new THREE.Mesh(geometry, shaderMaterial);
-const plane2 = new THREE.Mesh(geometry, shaderMaterial);
 scene.add(plane);
-scene.add(plane2);
 camera.position.z = 1; // Position the camera to see the plane
 
+// Animation loop
+let lastTime = 0;
 function animate(time) {
     time *= 0.001; // Convert time to seconds
 
-    shaderMaterial.uniforms.u_time.value = time;
-    renderer.render(scene, camera);
+    // Update u_time only once every ~16ms (60fps limit)
+    if (time - lastTime >= 1 / 60) {
+        lastTime = time;
+        shaderMaterial.uniforms.u_time.value = time;
+        renderer.render(scene, camera);
+    }
+
     requestAnimationFrame(animate);
 }
+
+// Start the animation
 animate();
