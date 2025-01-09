@@ -81,7 +81,7 @@ def start():
     insert_into_template(my_post, is_pub)
 
 def insert_into_template(my_post, is_pub):
-    template_path = "C:\\FILESC\\cs\\mysite\\blog-raw\\template.html"
+    template_path = "C:\\FILESC\\cs\\mysite\\blog-raw\\scripts\\template.html"
 
     with open(template_path, 'r', encoding='utf-8') as file:
         tc = file.read()
