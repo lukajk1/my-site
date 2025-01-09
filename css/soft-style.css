@@ -35,12 +35,16 @@ ul {
 }
 
 .card-description {
-    padding: 10px;
+    padding: 15px;
+}
+.card-description a {
+    padding: 0 3px;
 }
 
 #other-proj-container {
     display: flex;
     justify-content: center;
+    margin-top: 25px;
 }
 
 #inner-container {
@@ -67,7 +71,7 @@ ul {
 
 .styled-table td:nth-child(3) {
     text-align: right;
-    width: 60px;
+    width: 52px;
 }
 
 .project-name {

@@ -1,11 +1,10 @@
 body {
     max-width: 1074px;
     margin: auto;
-    font-family: serif;
     margin-bottom: 70px;
-    font-size: 18px;
-    background-color: #3e3e3e;
-    color: #f0f0f0;
+    font-size: 17px;
+    color: #202020;
+    background-color: #d4d4d4;
 }
 
 p {
@@ -14,20 +13,13 @@ p {
 }
 
 img {
-    /*border:1px solid black;*/
-    user-select: none;
+    user-select: none; /* just think it looks like shit when you can drag images accidentally */
 }
 
-h1, h2, h3 {
-    transition: 0.15s;
+ol {
+    list-style-type: bengali;
 }
-
-a {
-    /*color: #000;*/
-    color: #f0f0f0;
-    transition: 0.2s;
-}
-
+/*
 ::selection {
     color: #303030;
     background: #f0f0f0;
@@ -48,3 +40,4 @@ a {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+*/
