@@ -1,8 +1,8 @@
 import os
 import time
-import shutil
 import glob
 import re
+import sys
 
 class Post:
     def __init__(self, publish_date, update_date, title, body, word_count, hyphenated_title):
@@ -12,141 +12,113 @@ class Post:
         self.body = body
         self.word_count = word_count
         self.hyphenated_title = hyphenated_title
-        
+
 def get_time():
-    return int(time.time());
+    return int(time.time())
 
 def set_date(is_pub, filepath):
-    if is_pub:
-        date_type = "publish-date"
-    else:
-        date_type = "update-date"
-
-    with open(filepath, 'r+') as file:
+    date_type = "publish-date" if is_pub else "update-date"
+    with open(filepath, 'r+', encoding='utf-8') as file:
         content = file.read()
         content = re.sub(rf'{date_type}:.*?;', f'{date_type}: {get_time()};', content)
         file.seek(0)
         file.write(content)
         file.truncate()
-        print(f"set {date_type} to {filepath}")
+    print(f"Set {date_type} for {filepath}")
 
 def get_yes_no(question):
-    response = input(question)
-    if response == "y" or response == "Y":
-        return True
-    elif response == "n" or response == "N":
-        return False
-    else:
-        print("could not parse answer.")
-        return get_yes_no(question)
+    while True:
+        response = input(f"{question} (y/n): ").strip().lower()
+        if response in ["y", "n"]:
+            return response == "y"
+        print("Invalid response. Please enter 'y' or 'n'.")
 
 def start():
-    command = input("type 'publish <filename.txt>' or 'update <filename.txt>' to continue: ")
-    command_parts = command.split()
-
-    if len(command_parts) == 2 and command_parts[0] in ["publish", "update"]:
-        filename = command_parts[1]
-        directory = "C:\\FILESC\\cs\\mysite\\blog-raw"  
-        files_found = glob.glob(os.path.join(directory, filename))
-
-        if command_parts[0] == "publish":
-            is_pub = True
-        else:
-            is_pub = False
-    
-        if files_found:
-            print(f"Found file: {files_found[0]}")
-            my_post = parse_file(files_found[0])
-        else:
-            print(f"File '{filename}' not found in the directory.")
+    if len(sys.argv) == 3:
+        command_parts = sys.argv[1:]
     else:
+        command_parts = input("Type 'publish <filename.txt>' or 'update <filename.txt>' to continue: ").strip().split()
+
+    if len(command_parts) != 2 or command_parts[0] not in ["publish", "update"]:
         print("Invalid command format")
-        
-    #print(f"word count: {my_post.word_count}")
+        return
 
-    if my_post.publish_date != "null" and is_pub:
-        answer = get_yes_no("Post already contains a published date. Overwrite? (y/n)")
-        if answer:
-            set_date(True, files_found[0])
-            my_post.publish_date = get_time()
-    elif my_post.publish_date == "null" and is_pub:
-        set_date(True, files_found[0])
+    filename, is_pub = command_parts[1], command_parts[0] == "publish"
+    directory = "C:\\FILESC\\cs\\mysite\\blog-raw"
+    files_found = glob.glob(os.path.join(directory, filename))
+
+    if not files_found:
+        print(f"File '{filename}' not found.")
+        return
+
+    file_path = files_found[0]
+    print(f"Found file: {file_path}")
+    my_post = parse_file(file_path)
+
+    if is_pub and my_post.publish_date != "null":
+        if not get_yes_no("Post already contains a published date. Overwrite?"):
+            return
+
+    set_date(is_pub, file_path)
+    if is_pub:
         my_post.publish_date = get_time()
-
-    if not is_pub:
-        set_date(False, files_found[0])
+    else:
         my_post.update_date = get_time()
 
-    #os.rename(files_found[0], f'{my_post.hyphenated_title}.txt') just annoying having the longer name
     insert_into_template(my_post, is_pub)
 
 def insert_into_template(my_post, is_pub):
     template_path = "C:\\FILESC\\cs\\mysite\\blog-raw\\scripts\\template.html"
-
-    with open(template_path, 'r', encoding='utf-8') as file:
-        tc = file.read()
-
-    tc = tc.replace('blog</a> / ', f'blog</a> / {my_post.title}')
-    tc = tc.replace('</p>', f'{my_post.body}</p>')
-    tc = tc.replace('<word count:>', f'<word count:{my_post.word_count}>')
-
-    tc = tc.replace('date-created"></span>', f'date-created">{timestamp_to_readable(my_post.publish_date)}</span>')
-    
-    if my_post.update_date != "null":
-        tc = tc.replace('<i id="last-modified"></i>', f'<br /><i id="last-modified">last modified {timestamp_to_readable(my_post.update_date)}</i>')
-
     output_path = f"C:\\FILESC\\cs\\mysite\\blog\\{my_post.hyphenated_title}.html"
 
-    with open(output_path, 'w', encoding='utf-8') as output_file:
-        output_file.write(tc)
+    with open(template_path, 'r', encoding='utf-8') as file:
+        template_content = file.read()
 
-    if is_pub:
-        print(f"Published to {output_path}")
-    else:
-        print(f"Updated {output_path}")
+    replacements = {
+        'blog</a> / ': f'blog</a> / {my_post.title}',
+        '</p>': f'{my_post.body}</p>',
+        '<word count:>': f'<word count:{my_post.word_count}>',
+        'date-created"></span>': f'date-created">{timestamp_to_readable(my_post.publish_date)}</span>'
+    }
+
+    if my_post.update_date != "null":
+        replacements['<i id="last-modified"></i>'] = f'<br /><i id="last-modified">last modified {timestamp_to_readable(my_post.update_date)}</i>'
+
+    for key, value in replacements.items():
+        template_content = template_content.replace(key, value)
+
+    with open(output_path, 'w', encoding='utf-8') as output_file:
+        output_file.write(template_content)
+
+    print(f"{'Published' if is_pub else 'Updated'} to {output_path}")
 
 def timestamp_to_readable(timestamp):
     try:
-        timestamp = int(timestamp)
-        return time.strftime('%b %d %y %I:%M%p', time.localtime(timestamp)).lower()
-
+        return time.strftime('%b %d %y %I:%M%p', time.localtime(int(timestamp))).lower()
     except (ValueError, TypeError):
-        raise ValueError("Timestamp must be convertible to an integer")
+        raise ValueError("Timestamp must be an integer")
 
 def extract(content, start_flag):
-    start_index_title = content.find(start_flag)
-    if start_index_title != -1:
-        end_index_title = content.find(";", start_index_title)
-        if end_index_title != -1:
-            title = content[start_index_title + len(start_flag):end_index_title].strip()
-            print(f"Parsed {start_flag} {title}")
-            return title
-        else:
-            print("No terminating ';' found for the title.")
-    else:
-        print(f"No {start_flag} found in the file..")
+    match = re.search(rf'{start_flag}(.*?);', content)
+    if match:
+        return match.group(1).strip()
+    return "null"
 
 def parse_file(filepath):
-    try:
-        with open(filepath, 'r') as file:
-            content = file.read()
+    with open(filepath, 'r', encoding='utf-8') as file:
+        content = file.read()
 
-            title = extract(content, "title:")
-            publish_date = extract(content, "publish-date:")
-            update_date = extract(content, "update-date:")
+    title = extract(content, "title:")
+    publish_date = extract(content, "publish-date:")
+    update_date = extract(content, "update-date:")
 
-            body_start = content.find("<body>")
-            if body_start != -1:
-                body_content = content[body_start + len("<body>"):] .strip()
-                #print(f"Body content:\n{body_content}")
-            else:
-                print("No <body> tag found in the file.")
+    body_match = re.search(r'<body>(.*)', content, re.DOTALL)
+    body_content = body_match.group(1).strip() if body_match else ""
+    body_content = re.sub(r'##(.+)', r'<strong>\1</strong>', body_content)
 
-            hyphenated_title = title.replace(' ', '-')
-            hyphenated_title = hyphenated_title.lower()
-            return Post(publish_date, update_date, title, body_content, len(body_content.split()), hyphenated_title)
+    hyphenated_title = title.replace(' ', '-').lower()
+    word_count = len(body_content.split())
 
-    except Exception as e:
-        print(f"Error reading the file: {e}")
+    return Post(publish_date, update_date, title, body_content, word_count, hyphenated_title)
 
 start()
