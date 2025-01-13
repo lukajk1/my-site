@@ -1,0 +1,22 @@
+publish-date: 1736835500; update-date: null;
+
+title: AI Art;
+
+<body>
+In mid 2022 generative AI took off in visibility. However, it has failed to get anywhere particularly substantive. Ethicality or otherwise aside, it's just not a viable alternative as it stands. 
+
+A skilled artist attempting to prompt something specific will find there isn't enough control built into these tools to feasibly do so. This is just by natural consequence - the easier it is to use to use a tool to its full potential, the lower that potential is. For mainstream generative AI the whole point is to offer tooling for people that don't already have strong artistic skills.
+
+A word prompt also contains far less information than a picture, so iterations are inevitable to better align it to the vision. However, steering it in any particular direction is very difficult. To be able to consistently improve AI images by iteration you would need to be able to describe what needs to change down to very small changes - on the order of individual brushstrokes. Obviously at that point you're just manually painting with extra steps. There is a case for AI as a base for manual refinement though its usefulness seems highly situational, as a flawed starting point often creates more problems than it solves.
+
+Ted Chiang wrote that art is <a href="https://web.archive.org/web/20240921122440/https://www.newyorker.com/culture/the-weekend-essay/why-ai-isnt-going-to-make-art#:~:text=art%20is%20something%20that%20results%20from%20making%20a%20lot%20of%20choices">"something that results from making a lot of choices."</a> This is necessarily the case since a result that is neither particularly creative or particularly difficult to come about by definition is not very interesting. Distinction in art then comes about by those different, difficult choices. Claim <a href="https://www.amazon.com/Paint-Spin-Art-Machine-Kids/dp/B0CJYKM4FT">spin art</a> virtuosity all you want but no one who knows how they're made finds the results particularly awe-inspiring or even meaningfully distinct (I apologize to any parents and/or young children). 
+
+##Further Notes
+That summarizes why AI art in its current form is fairly unhelpful. However there are some other aspects under the umbrella of AI art that bear interesting thoughts at the least.
+
+Art is not a monolith - traits of some niches will not translate to others. One example is that some styles are much more convincingly generated than others. <a href="https://www.astralcodexten.com/p/how-did-you-do-on-the-ai-art-turing">This survey by Scott Alexander</a> tested whether people could distinguish between AI and human art fielded 11,000 responses, with a median score of 60% - not significantly better than pure guessing at 50%. Something that stood out was that the <a href="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8a354fcd-22c8-4218-a0c2-be1b10920b69_740x707.png">generated</a> <a href="https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb80b7e24-3bab-44eb-9747-98241ca6a670_740x707.png">naturalistic landscapes</a> were virtually indistinguishable from real ones: "Your instincts were worst for Impressionism; you identified every single Impressionist painting as human <i>except</i> the sole actually-human Impressionist work in the dataset (Paul Gauguin’s <i>Entrance To The Village Of Osny</i>)" (presumably he meant overwhelmingly people were wrong). I believe the amount of inherent noise in physical paintings and variance in landscapes (no specific scenes that need to make sense, hands, text, etc) cover up AI's weaknesses. 
+
+Much in this vein, this <a href="https://x.com/st66612873/status/1874821767786889572">AI artwork</a> caused quite a bit of discussion on Twitter recently. Certainly as far as AI images go I think this one is pretty appealing, but again the style here is very suited to AI.
+
+##Theft?
+By far the most common criticism of AI art I've seen is that it is "theft" - trained on artists' works without their consent. However artists are also drawing on their visual experiences (which certainly include plenty of other artists' work without express permission) to produce art. I have yet to see a legitimate rebuttal to that...
