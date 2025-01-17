@@ -66,6 +66,7 @@ def start():
         my_post.update_date = get_time()
 
     insert_into_template(my_post, is_pub)
+    os.system("python gen-blog.py")
 
 def insert_into_template(my_post, is_pub):
     template_path = "C:\\FILESC\\cs\\mysite\\blog-raw\\scripts\\template.html"
