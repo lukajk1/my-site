@@ -19,25 +19,3 @@ img {
 ol {
     list-style-type: bengali;
 }
-/*
-::selection {
-    color: #303030;
-    background: #f0f0f0;
-}
-
-::-webkit-scrollbar {
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: #202020;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #5a5a5a;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-*/
