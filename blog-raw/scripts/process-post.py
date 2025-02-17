@@ -117,7 +117,7 @@ def parse_file(filepath):
     body_content = body_match.group(1).strip() if body_match else ""
     body_content = re.sub(r'##(.+)', r'<strong>\1</strong>', body_content)
 
-    hyphenated_title = title.replace(' ', '-').lower()
+    hyphenated_title = re.sub(r'[^a-zA-Z0-9\s-]', '', title).replace(' ', '-').lower()
     word_count = len(body_content.split())
 
     return Post(publish_date, update_date, title, body_content, word_count, hyphenated_title)
