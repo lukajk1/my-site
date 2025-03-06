@@ -26,20 +26,34 @@
             margin-top: -10px;
             margin-left: -20px;
         }
-#nav {
-margin: 0;
-padding: 0;
-padding-bottom: 30px;
-}
+        #nav {
+            margin: 0;
+            padding: 0;
+            display: inline;
+        }
 
-#nav li {
-display: inline;
-padding: 0 5px;
-}
+        #nav li {
+            display: inline;
+            padding: 0 5px;
+        }
 
-ol {
-margin: auto;
-}
+        ol {
+            margin: auto;
+        }
+        
+        #center {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Adjust spacing between elements */
+        }
+
+        h2 {
+            margin: 0; /* Remove default margin */
+            display: inline;
+        }
+
+
     </style>
 </head>
 <body>
@@ -48,13 +62,14 @@ margin: auto;
     <script src="js/shader.js"></script>
 
 
-<center>    <h1>lukajk</h1>
+<div id="center">    
+    <h2>lukajk</h2>
     <ul id="nav">
         <li><a href='art.html'>art</a></li>
         <li><a href='soft.html'>soft</a></li>
         <li><a href='blog.html'>blog</a></li>
     </ul>
-</center>
+</div>
 
 </body>
 </html>
