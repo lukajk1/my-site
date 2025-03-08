@@ -1,0 +1,13 @@
+publish-date: 1741157051; update-date:null; 
+title: knowledge > reasoning;
+
+<body>
+In one study mentioned in Ericsson's "Peak," a group of young chess players' ability was at first influenced by their IQ but as they accumulated more practice it became a result of how many hours they had put in. Additionally it is well known that notable chess players' strength is not related to IQ. 
+
+The recent arrival of coherent LLMs and technically competent (if perhaps creatively lacking) image generation programs seem to all but confirm this - a massive database of knowledge is superior to a relatively "a priori" approach. These generative programs don't "understand" in any capacity (taking a lack of theoretical understanding to another level) but they are able to produce extremely convincing imitations nonetheless.
+
+This certainly aligns with common wisdom as well - theory is worth little, growth occurs through doing, etc etc. I suppose this would also be part of why "deliberate practice" seems to be so effective. 
+
+It just seems counterintuitive to a degree that strategic aspects are ultimately better served by experience over reasoning ability, but I suppose in the example of whether you would have more trust in the person who has experienced something 25 times and tried out various approaches, or the person who is somewhat smarter but is just going off their best guesses, there's a pretty compelling reason to go with the former.
+
+Even better if you actually reflect on experiences though, then you get the advantages of both approaches..

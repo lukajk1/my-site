@@ -1,4 +1,4 @@
-publish-date: 1739732443; update-date: 1739822683; 
+publish-date: 1739732443; update-date: 1739824112; 
 title: you(r brain) can learn anything;
 
 <body>
@@ -6,4 +6,4 @@ You see the sorts of comments from time to time like "the human brain is so amaz
 
 But we're clearly not born knowing how to walk - even if we do have some pre-extant capacity in that regard (which may or may not be true I have no idea) it's very clear that trial, error and practice are a large part of achieving unconscious competence. Repeatedly falling then catching yourself while moving down a flight of stairs is quite a complicated feat of coordination, isn't it? And yet everyone is perfectly capable of doing so. A kickflip suddenly doesn't seem that much harder, if at all.  
 
-At the least, we're not being genetically inhibited from learning something (hence the post title). That is, the more "unconscious" parts of our brains are quite good at learning and coordinating complex actions. However, the "person" themselves (their "conscious" part of the brain) may choose.. suboptimal strategies for learning effectively.
+At the least, we're not being genetically inhibited from learning something (hence the post title). That is, the more "unconscious" parts of our brains are quite good at learning and coordinating complex actions. However, the "person" themselves (their "conscious" part of the brain) may choose.. suboptimal strategies for learning effectively, let's say.
