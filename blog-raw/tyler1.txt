@@ -1,4 +1,5 @@
-publish-date: 1737153332; update-date: 1737372721; 
+publish-date: 1737153332; update-date: 1737372721; tags: fluff, skill;
+
 title: tyler1;
 
 <body>
