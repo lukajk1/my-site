@@ -51,7 +51,7 @@ def format_blog_entries_as_li(blog_entries):
     for entry in sorted_entries:
         li_elements.append(f'''
         <li><a href="blog/{entry["filename"]}">{entry["title"]}</a><br />
-        word count: {entry["word_count"]} / {entry["date_created"]}</li>
+        {entry["word_count"]} words / {entry["date_created"][:9]}</li>
         '''.strip())
 
     return "<ol reversed>\n" + "\n".join(li_elements) + "\n</ol>"
