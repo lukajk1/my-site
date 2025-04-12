@@ -1,5 +1,5 @@
 publish-date: 1744437330; update-date:null; 
-tags: random, reflective, improvement;
+tags: fluff, reflective;
 
 title: going nowhere is going somewhere (sometimes);
 

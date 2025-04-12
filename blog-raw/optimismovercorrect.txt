@@ -1,4 +1,5 @@
-publish-date: 1742070983; update-date:null; tags: null;
+publish-date: 1742070983; update-date:null; 
+tags: reflective;
 
 title: optimism is a necessary overcorrection;
 

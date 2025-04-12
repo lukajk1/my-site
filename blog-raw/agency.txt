@@ -1,5 +1,5 @@
 publish-date: 1744102810; update-date: 1744415868; 
-tags: null;
+tags: fluff, philosophic;
 
 title: agency;
 

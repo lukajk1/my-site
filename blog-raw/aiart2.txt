@@ -1,5 +1,5 @@
 publish-date: 1743161178; update-date: 1743161955; 
-tags: null;
+tags: ai;
 
 title: ai art ii;
 

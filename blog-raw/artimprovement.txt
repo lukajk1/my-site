@@ -1,5 +1,5 @@
 publish-date: 1741394511; update-date: null;
-tags: art, skill;
+tags: art, ability;
 
 title: about art improvement;
 

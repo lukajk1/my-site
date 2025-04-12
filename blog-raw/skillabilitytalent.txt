@@ -1,5 +1,5 @@
 publish-date: 1744101733; update-date: 1744247462; 
-tags: null;
+tags: ability;
 
 title: skill, ability, talent;
 

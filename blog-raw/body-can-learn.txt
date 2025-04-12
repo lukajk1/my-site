@@ -1,5 +1,5 @@
 publish-date: 1739732443; update-date: 1739824112; 
-tags: null;
+tags: reflective, ability;
 
 title: you(r brain) can learn anything;
 

@@ -1,5 +1,5 @@
 publish-date: 1736835500; update-date: null;
-tags: ai, essay;
+tags: ai;
 
 title: AI Art;
 
