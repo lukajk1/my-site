@@ -1,5 +1,5 @@
 publish-date: 1739482539; update-date:null; 
-tags: fluff;
+tags: fluff, games;
 
 title: horse armor ii;
 

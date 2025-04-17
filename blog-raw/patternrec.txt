@@ -1,0 +1,7 @@
+publish-date: 1744857873; update-date:null; 
+tags: ability;
+
+title: pattern recognition;
+
+<body>
+Pattern recognition for a specific application is a skill--as opposed to a talent. But this also depends on the level of abstraction necessary to make a pattern out of it, perhaps. Comes back to the same dynamic where talent/intelligence might pick out something faster but an varying compensatory amount of experience would lead to the same..

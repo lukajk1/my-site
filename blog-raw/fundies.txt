@@ -1,0 +1,24 @@
+publish-date: 1744802554; update-date:null; 
+tags: art, ability;
+
+title: (art) fundamentals (of technique);
+
+<body>
+If I learned anything from the time I've spent on art it's that becoming good at "fundamentals" is not something you do early on and then never have to touch again but the whole endeavor of improving in terms of technique. Specifically, painting asks for shape and edge control, strong construction (drawing), and understanding how light influences color (value is a byproduct of this). Things like anatomy are typically included but for one, that is a lot more variable in relevance compared to the above traits, which will basically always be invoked in some capacity, not to mention just being more contingent on a flat amount of knowledge--that is to say, relatively trivial to become modestly proficient in, at least compared to the concepts I've listed. Anyhow, any person's technical ability (in my view, I suppose) can be pretty fully represented by quantities across these dimensions. 
+
+I guess the problem is that these ideas, while seemingly (and are, in certain manners) conceptually simple, have many considerations that must be made and do not even come close to expressing the real "matrix" of information that would have to be learned to become strong in any one of these. It's approaching something like saying, "in order to be a good artist it's important to make good art," really.
+
+In any case, something like "core skills" would be a much more apt name for fundamentals. Since "fundamentals" really implies that you stop needing to consider them after a certain point.
+
+# origin and growth in (art) fundamentals
+
+Here's the big question though--clearly fundamentals arise as generalization of "best" practices across a large sample of specific cases, but how many do you need, exactly? In other words, what is the origin of these various fundamentals and how are they developed? It's not a linear relationship between the number of cases you've seen and your capacity for these generalized abilities, that much is clear (that is to say, time investment is not the sole determinant of ability). All these terms are just too vague to say anything definitively, I guess.
+
+Could these fundamentals be trained more directly? For one, how "light influences color" is basically just knowledge as well... should I remove that from the list then? Probably but we would really be getting spartan in that case. At least for anatomy that much is a lot more specific (if you're drawing only horses human anatomy has limited applicability) so I guess they're all on a spectrum of specificity. Anatomy is certainly an example of something that is quite concrete knowledge, and light influencing color is comparable, although more broadly applicable in painting. As for shape and edge control... they are basically downstream of drawing/construction skill. Since where you can put a hard or soft edge depends on the form (mostly, certainly there are other reasons you would soften an edge but let's minimize edge cases for the moment) that clearly just stems from construction. Shapes as well are largely dependent on the underlying forms although it is still somewhat an abstract skill (consider that novices literally tracing will not have good shape design). That might make shape design the most abstract skill so far. For drawing/construction itself that is dependent on knowledge of the forms of the thing you are trying to draw, and then projecting it into space. That latter half is definitely a more ambigious skill.
+
+For spatial projection and shape design, there's not much more to be said other than an intuition for them must be developed through repeated referencing of other artists, trial and error, observation, and whatever else. But they cannot be codified in the same ways that the other aspects are. Or in the case of anatomy in particular, simply a flat amount of knowledge that must be learned.
+
+Observation precedes skill, that much is clear (to improve something someone has to know something's wrong in the first place). So at the least your capacity for one of these fundamentals is limited by your specific knowlege of shortcomings.
+
+Whatever that's enough for today.. Reminds me of those rambling philosophers whose daily notes were just taken and then published like that and now everyone has to suffer their meandering. While of biographical interest, perhaps less relevant for those who just want to study their ideas.
+ 
