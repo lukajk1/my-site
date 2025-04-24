@@ -1,0 +1,8 @@
+publish-date: 1745043371; update-date:null; 
+tags: ai, art;
+
+title: ai art iv;
+
+<body>
+Assuming AI is incorporated into at least most creative industry pipelines at some point, I expect that we will see a lot more deviation from convention in visual media. Or any artistic discipline, really. Since gen AI as it currently works is derivative of its training data, pioneering new styles is a simple enough means of demonstrating individuality. 
+ 

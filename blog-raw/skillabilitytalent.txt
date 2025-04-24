@@ -1,4 +1,4 @@
-publish-date: 1744101733; update-date: 1744247462; 
+publish-date: 1744101733; update-date: 1745444624; 
 tags: ability;
 
 title: skill, ability, talent;
@@ -10,13 +10,13 @@ skill - capacity for an isolated task that is virtually entirely correlative wit
 ex: the feeling of forming a backflip, or kickflip, or probably any sportsball maneuver 
 (although this is not quite accurate because these aren't fully "linearly correlative with time investment," that requirement always will inherently be influenced by talent, in reality. But that difference comes from how often myelin sheaths are being strengthened rather than the sheaths themselves growing faster in one person than another.)
 
-I think knowledge might play a bit of an interesting role - researchers love to study chess players and an idea that comes up quite a lot is that they have developed an extensive library of games that forms the basis for their ability to read the board in chunks like "lines of force," and so on. I imagine the games themselves are partially synonymous with heavily insulated myelin--recalling a game calls on these chunked patterns where each move influences what comes next, perhaps in the same way that we recall the chronological ordering of events in a book. Then the two are quite woven together. So perhaps knowledge is nearly quite directly skill.
+I think knowledge might play a bit of an interesting role - researchers love to study chess players and an idea that comes up quite a lot is that they have developed an extensive library of games that forms the basis for their ability to read the board in chunks like "lines of force," and so on. I imagine the games themselves are partially synonymous with heavily insulated myelin--recalling a game calls on these chunked patterns where each move influences what comes next, perhaps in the same way that we recall the chronological ordering of events in a book. Then the two are quite woven together. So perhaps knowledge is nearly quite directly skill. At the least all experience and information pertaining to a discipline would be categorized under this umbrella.
 -> <a href="../blog/knowledge--reasoning.html">knowledge > reasoning</a> 
 
 ability - "crystallized" capacity for a discipline. More or less the idea of "skill" in its typical usage.
 ex: the ability to paint realistically, or read sheet music, etc
 
-talent - the combination of intelligence in the statistical trait sense, and positively contributing life experiences (good mental demonstrated by a parental figure, etc). I believe that raw intelligence is far from the full picture of talent itself, let alone ability as a whole. Your experiences  affect how you respond to failure, approach various types of problems (for one reason or another you may have seen one in a similar form before), where you derive your sense of drive, and inform your attitude and understanding of the discipline, to name a few. 
+talent - this one is untouched from the generally understood definition of talent: whatever initial capacity you have for a discipline at the start (before you've practiced at all). This is the combination of intelligence in the statistical trait sense, and positively contributing life experiences (good mental demonstrated by a parental figure, etc). Raw intelligence is far from the full picture of talent itself, let alone ability as a whole. Your experiences  affect how you respond to failure, approach various types of problems (for one reason or another you may have seen one in a similar form before), where you derive your sense of drive, and inform your attitude and understanding of the discipline, to name a few. 
 
 Skill is what practice largely aims to improve. Intelligence is just one aspect of talent. Ability is the result of skill and talent. 
 

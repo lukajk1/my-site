@@ -1,0 +1,12 @@
+publish-date: 1744860652; update-date:null; 
+tags: philosophy;
+
+title: the "philosophical" trait;
+
+<body>
+</p>
+<blockquote>"I nevertheless derive the highest satisfaction from the progress I conceive myself to have already made in the search after truth... 
+From my childhood, I have been familiar with letters; and as I was given to believe that by their help a clear and certain knowledge of all that is useful in life might be acquired, I was ardently desirous of instruction. But as soon as I had finished the entire course of study, at the close of which it is customary to be admitted into the order of the learned, I completely changed my opinion. For I found myself involved in so many doubts and errors, that I was convinced I had advanced no farther in all my attempts at learning, than the discovery at every turn of my own ignorance. And yet I was studying in one of the most celebrated schools in Europe, in which I thought there must be learned men, if such were anywhere to be found. I had been taught all that others learned there; and not contented with the sciences actually taught us, I had, in addition, read all the books that had fallen into my hands, treating of such branches as are esteemed the most curious and rare. I knew the judgment which others had formed of me; and I did not find that I was considered inferior to my fellows..."</blockquote>
+- Descartes, Discourse on the Method.. (tr. John Veitch)
+<p>What causes people to have a philosophical slant to them? Just chalk it up to personality? Although some measure of intelligence is important it's not prescriptive of it.
+ 

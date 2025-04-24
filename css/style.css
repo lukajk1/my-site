@@ -2,9 +2,10 @@ body {
     max-width: 1074px;
     margin: auto;
     margin-bottom: 70px;
-    font-size: 17px;
+    font-size: 16px;
     color: #202020;
     background-color: linen;
+font-family: monospace;
 }
 
 p {
@@ -17,5 +18,5 @@ img {
 }
 
 ol {
-    list-style-type: bengali;
+    list-style-type: regular;
 }
