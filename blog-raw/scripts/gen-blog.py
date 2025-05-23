@@ -76,8 +76,33 @@ def update_blog_page(blog_page_path, blog_entries):
 
     print(f"Updated {blog_page_path} with sorted blog entries.")
 
+def update_post_html_titles(directory, blog_entries):
+    """Updates the <title> tag in each blog HTML file to include the post title."""
+    for entry in blog_entries:
+        filepath = os.path.join(directory, entry["filename"])
+        with open(filepath, 'r+', encoding='utf-8') as file:
+            content = file.read()
+
+            # Replace or insert the <title> tag
+            new_title_tag = f"<title>{entry['title']}</title>"
+            if "<title>" in content:
+                content = re.sub(r"<title>.*?</title>", new_title_tag, content, flags=re.IGNORECASE)
+            else:
+                # Insert <title> right after <head> if <title> tag does not exist
+                content = re.sub(r"(<head[^>]*>)", r"\1\n" + new_title_tag, content, flags=re.IGNORECASE)
+
+            file.seek(0)
+            file.write(content)
+            file.truncate()
+
+    print("Updated <title> tags in individual blog post HTML files.")
+
+
+
 blog_directory = "C:\\FILESC\\cs\\mysite\\blog"
 blog_page_path = "C:\\FILESC\\cs\\mysite\\blog.html"
 
 blog_entries = extract_all_blog_info(blog_directory)
+update_post_html_titles(blog_directory, blog_entries)
 update_blog_page(blog_page_path, blog_entries)
+
