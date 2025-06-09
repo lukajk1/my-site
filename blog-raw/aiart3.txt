@@ -1,5 +1,5 @@
 publish-date: 1743905406; update-date: 1744105543; 
-tags: ai;
+tags: ai, speculative;
 
 title: ai art iii;
 

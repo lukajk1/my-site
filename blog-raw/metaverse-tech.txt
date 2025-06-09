@@ -1,0 +1,22 @@
+publish-date: 1749447269; update-date:null; 
+tags: metaverse, art, speculative;
+
+title: "metaverse" technical thoughts;
+
+<body>
+"Metaverse" is something of a buzzword but the concept is far from new. The idea of virtual platforms that allow a variety of social interactions and gaming opportunities already exists in varying capacities in the form of VRChat, Second Life,  Roblox and Garry's Mod, to name a few. The main distinction between these offerings and a "metaverse" would be the level of immersion in terms of graphical fidelity and accuracy and range of interactions possible between two game objects and/or the player. 
+
+A first question is how distinct computers would connect with each other. What would likely be ideal is if there were a variety of clients (and some of them open source initiatives) that could parse and render streamed information through a common set of protocols--"protocol model," let's call it. This is basically exactly the role and characteristics of modern browsers with TCP/IP, UDP and whatever else. 
+
+This is a lot more preferable to the alternative of isolated proprietary models, where all data and interaction is done within that company's software. The modern analogue to this is Discord, or the aforementioned game/social interaction mixes like VRChat and Second Life. I'll elaborate on that later but obviously generally it's not particularly in the interest of consumers to be entirely beholden to a single platform.
+
+Another interesting, and more contentious, question is whether "possessions" should be subject to any sort of contrived scarcity or not. Savvy technical artists would be creating all sorts of beautiful hangout spaces and interactive props from the very start of these technologies developing. Well, this isn't even speculation at all because this is already happening with VRChat artists that create rooms, avatars, and whatever else. 
+
+But should these items be subject to scarcity? They are more "valuable" that way, some sort of DRM tech could probably be implemented as deterrence to piracy, which potentially undermines the earnings of artists and further lets them control how their content is distributed, and it would be another means of patronizing artists. Once again, there is already conceptual precedent for this--Patreon and similar platforms enable artists to fully support themselves through their pseudo-exclusive content (after all, the content is just plain old arbitrary files with no technical restrictions to distribution) without any of these attachments. 
+
+Marketplaces that are owned by singular entities are only really favorable in the case that there is significant need for regulation of the content. Steam's $100 fee and asset requirements for a listing is a strong disincentive to put up some sort of trojan horse on the store. In comparison itch.io's lighter requirements is convenient for smaller projects but provides more friction as users are generally wary downloading files running arbitrary executables, and for good reason. Obviously it's in the interest of that entity to always be a part of that artist-consumer economy (so they can take a cut) but in cases where regulation/some minimum guarantee of quality is not required, the precense of the "middle-man" is entirely redundant. 
+
+In any case, given the disparity in terms of ease of supporting oneself video games certainly have an advantage in the aspect of "providing an experience," as far as digital goods go. Comics definitely have a place as well but as purely an artist that makes one-off images, or pretty-looking abstract sculptures, or any other sort of art where part of the appeal derives from "ownership" in some sense (people derive value from physical prints or original artworks, but that utility isn't provided as much by just having a digital file), there is basis for a decentralized ledger (blockchain) that legitimizes that notion. Ultimately, both are at least somewhat viable models, in comparison to the question of a protocol or proprietary model for communication and rendering where the former is almost certain to be better for consumers.
+
+I guess there would be complications with rendering as well due to differences in hardware and supported graphics APIs but that's hardly a new thing either. I suppose it wouldn't be too uncommon for assets to not be supported by one client or another and render weirdly or not at all. 
+ 

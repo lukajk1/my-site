@@ -58,7 +58,7 @@ def format_blog_entries_as_li(blog_entries):
 
         li_elements.append(f'''
         <li><a href="blog/{entry["filename"]}">{entry["title"]}</a><br />
-        {entry["word_count"]} words - {entry["date_created"][:9]}{tag_text}</li>
+        {entry["date_created"][:9]} - {entry["word_count"]} words {tag_text}</li>
         '''.strip())
 
     return "<ol reversed>\n" + "\n".join(li_elements) + "\n</ol>"
