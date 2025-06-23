@@ -133,8 +133,8 @@ def parse_file(filepath):
 
     # Add 'minipost' tag if applicable
     tag_list = [tag.strip() for tag in tags.split(',')] if tags and tags.lower() != "null" else []
-    if word_count <= 200 and 'minipost' not in tag_list:
-        tag_list.append('minipost')
+    if word_count <= 200 and 'short' not in tag_list:
+        tag_list.append('short')
     tags = ", ".join(sorted(filter(None, tag_list)))
 
     return Post(publish_date, update_date, title, body_content, word_count, hyphenated_title, tags)

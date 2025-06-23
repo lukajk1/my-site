@@ -5,7 +5,8 @@ body {
     font-size: 16px;
     color: #202020;
     background-color: linen;
-font-family: monospace;
+    font-family: monospace;
+    padding: 0 35px;
 }
 
 p {
@@ -23,4 +24,9 @@ ol {
 
 #header {
     margin-top: 45px;
+    /*padding: 0 45px;*/
+}
+
+.card {
+    border: 1px solid gray;
 }

@@ -3,7 +3,6 @@ import re
 from datetime import datetime
 
 def extract_blog_info(html_content):
-    """Extracts word count, date, title, and tags from a blog HTML file."""
     word_count_match = re.search(r"<!-- <word count:(\d+)>", html_content)
     word_count = int(word_count_match.group(1)) if word_count_match else None
 
@@ -24,13 +23,12 @@ def extract_blog_info(html_content):
     }
 
 def extract_all_blog_info(directory):
-    """Extracts blog info from all .html files in the specified directory."""
     blog_entries = []
 
     for filename in os.listdir(directory):
         if filename.endswith(".html"):
             filepath = os.path.join(directory, filename)
-            with open(filepath, 'r') as file:
+            with open(filepath, 'r', encoding='utf-8') as file:
                 content = file.read()
                 blog_info = extract_blog_info(content)
 
@@ -40,81 +38,82 @@ def extract_all_blog_info(directory):
 
     return blog_entries
 
-def format_blog_entries_as_li(blog_entries):
-    """Formats extracted blog entries into sorted <li> elements."""
-
+def format_blog_entries_as_cards(blog_entries):
     def parse_date(date_str):
         return datetime.strptime(date_str, '%b %d %y %I:%M%p')
 
     sorted_entries = sorted(blog_entries, key=lambda x: parse_date(x["date_created"]), reverse=True)
 
-    li_elements = []
+    card_elements = []
     for entry in sorted_entries:
         if entry['tags'].lower() == "none":
-            tag_text = " - tags: none"
+            tag_text = ""
         else:
             tag_list_raw = [tag.strip() for tag in entry['tags'].split(',') if tag.strip()]
-            # Move 'minipost' to front if present
-            if 'minipost' in tag_list_raw:
-                tag_list_raw = ['minipost'] + [tag for tag in tag_list_raw if tag != 'minipost']
+            if 'short' in tag_list_raw:
+                tag_list_raw = ['short'] + [tag for tag in tag_list_raw if tag != 'short']
 
             tag_list = []
             for tag in tag_list_raw:
-                if tag == "minipost":
+                if tag == "short":
                     tag_list.append(f'<span class="tag-label minipost">{tag}</span>')
                 else:
                     tag_list.append(f'<span class="tag-label">{tag}</span>')
+            tag_text = ", ".join(tag_list)
 
+        card_html = f'''
+        <div class="card">
+            <a href="blog/{entry["filename"]}">{entry["title"]}</a>
+            <p>{entry["date_created"][:9]}, {entry["word_count"]} words<br>{tag_text}</p>
+        </div>'''.strip()
 
-            tag_text = " - tags: " + ", ".join(tag_list)
+        card_elements.append(card_html)
 
-        li_elements.append(f'''
-        <li><a href="blog/{entry["filename"]}">{entry["title"]}</a><br />
-        {entry["date_created"][:9]} - {entry["word_count"]} words {tag_text}</li>
-        '''.strip())
-
-    return "<ol reversed>\n" + "\n".join(li_elements) + "\n</ol>"
+    return "\n".join(card_elements)
 
 def update_blog_page(blog_page_path, blog_entries):
-    """Updates the blog.html file with the formatted blog list."""
-    li_formatted = format_blog_entries_as_li(blog_entries)
+    card_formatted = format_blog_entries_as_cards(blog_entries)
 
-    with open(blog_page_path, 'r+') as file:
+    with open(blog_page_path, 'r+', encoding='utf-8') as file:
         content = file.read()
-        content = re.sub(r'<ol reversed>.*?</ol>', li_formatted, content, flags=re.DOTALL)
-        file.seek(0)
-        file.write(content)
-        file.truncate()
 
-    print(f"Updated {blog_page_path} with sorted blog entries.")
+        match = re.search(
+            r'(<div[^>]*\bid="container"[^>]*>)(.*?)(</div>)',
+            content,
+            flags=re.DOTALL | re.IGNORECASE
+        )
+
+        if not match:
+            raise ValueError("Could not find container div")
+
+        new_container = f"{match.group(1)}\n{card_formatted}\n{match.group(3)}"
+        new_content = content[:match.start()] + new_container + content[match.end():]
+
+        with open(blog_page_path, 'w', encoding='utf-8') as file:
+            file.write(new_content)
+
+
+    print(f"Updated {blog_page_path} with fully rebuilt container.")
 
 def update_post_html_titles(directory, blog_entries):
-    """Updates the <title> tag in each blog HTML file to include the post title."""
     for entry in blog_entries:
         filepath = os.path.join(directory, entry["filename"])
         with open(filepath, 'r+', encoding='utf-8') as file:
             content = file.read()
-
-            # Replace or insert the <title> tag
             new_title_tag = f"<title>{entry['title']}</title>"
             if "<title>" in content:
                 content = re.sub(r"<title>.*?</title>", new_title_tag, content, flags=re.IGNORECASE)
             else:
-                # Insert <title> right after <head> if <title> tag does not exist
                 content = re.sub(r"(<head[^>]*>)", r"\1\n" + new_title_tag, content, flags=re.IGNORECASE)
-
             file.seek(0)
             file.write(content)
             file.truncate()
-
     print("Updated <title> tags in individual blog post HTML files.")
 
-
-
+# Example usage
 blog_directory = "C:\\FILESC\\cs\\mysite\\blog"
 blog_page_path = "C:\\FILESC\\cs\\mysite\\blog.html"
 
 blog_entries = extract_all_blog_info(blog_directory)
 update_post_html_titles(blog_directory, blog_entries)
 update_blog_page(blog_page_path, blog_entries)
-
