@@ -53,7 +53,19 @@ def format_blog_entries_as_li(blog_entries):
         if entry['tags'].lower() == "none":
             tag_text = " - tags: none"
         else:
-            tag_list = [f'<span class="tag-label">{tag.strip()}</span>' for tag in entry['tags'].split(',') if tag.strip()]
+            tag_list_raw = [tag.strip() for tag in entry['tags'].split(',') if tag.strip()]
+            # Move 'minipost' to front if present
+            if 'minipost' in tag_list_raw:
+                tag_list_raw = ['minipost'] + [tag for tag in tag_list_raw if tag != 'minipost']
+
+            tag_list = []
+            for tag in tag_list_raw:
+                if tag == "minipost":
+                    tag_list.append(f'<span class="tag-label minipost">{tag}</span>')
+                else:
+                    tag_list.append(f'<span class="tag-label">{tag}</span>')
+
+
             tag_text = " - tags: " + ", ".join(tag_list)
 
         li_elements.append(f'''

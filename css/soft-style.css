@@ -1,19 +1,8 @@
 
 body {
     margin: 20px;
-    font-size: 17px;
-    max-width: 1834px;
-}
-
-img {
-    width: 100%;
-}
-
-ul {
-    position: relative;
-    list-style-type: bengali;
-    margin-top: -10px;
-    margin-left: -20px;
+    font-size: 16px;
+    max-width: 100%; /* needed for centering? */
 }
 
 #header {
@@ -22,28 +11,60 @@ ul {
     margin-bottom: 40px;
 }
 
-#card-container {
+#gallery-container {
+    width: 990px;
+    margin: auto;
+}
+
+.card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    gap: 13px;
-width: 750px;
-margin: auto;
+    gap: 12px;
+    margin: auto;
 }
 
-.project-card {
-    max-width: 460px;
-    max-height: 400px;
+.card {
+    width: 315px;
+    height: 400px;
+
+    border: 1px solid gray;
+
+    font-size: 16px;
+    margin: 1px;
+    overflow: hidden;
+}
+
+.card-img {
+    height: 250px;
+    background-color: #e9dccf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    border-bottom: 1.5px dashed gray;
+}
+
+.soft-icon {
+    height: 120px;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+
+.card p {
+    font-size: 14px;
+    white-space: revert;
 }
 
 .card-description {
     padding: 15px;
 }
+
 .card-description a {
     padding: 0 3px;
 }
 
-#other-proj-container {
+#table-container {
     display: flex;
     justify-content: center;
     margin-top: 25px;
@@ -62,8 +83,6 @@ margin: auto;
 .styled-table td {
     padding: 8px 14px 14px 0;
     text-align: left;
-    /*border: 1px solid #ddd;
-    vertical-align: top*/
 }
 
 .styled-table td:nth-child(2) {

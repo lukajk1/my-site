@@ -1,0 +1,23 @@
+publish-date: 1750201736; update-date:null; 
+tags: ability, complexity, creativity, gamedev, off-the-deep-end;
+
+title: creativity, complexity;
+
+<body>
+When you get a bunch of things together and they interact with each other there is some level of emergent interaction by definition. The greater the "possibility space" (how many meaningfully novel permutations there are), the more complex the whole.
+
+Creativity is already tacitly understood as relatively novel solutions to any variety of problems within somewhat complex spaces. But it's nice to make these things explicit. 
+
+The complexity of a space isn't even fixed--varying on the individual basis of how much experience someone has in it. Someone designing a computer program without much prior knowledge may reinvent several design patterns--exercising a nonzero amount of creativity, but a veteran will immediately jump to several tried-and-tested patterns for a trivial program as a result of developed skill. This corner of development is not sufficiently complex enough as to demand creativity for its breadth of problems, given some quantity of practice.
+
+Skill supplants the need for creativity over time, the rate of which depends on the triviality of the space. Could any space be so complex as to entirely escape any sort of development of skill? I guess not. Experience/skill will always have relevancy so long as there are patterns to learn from, and a space that had no discernable patterns inherently can't be understood or manipulated. Since creativity requires deliberate usage of some interactions (i.e. patterns) that couldn't happen either.
+
+Skill is nice to develop and all, and in reality everything sits somewhere between the two, but creativity is, as a rule, the more interesting and fulfilling of the two. Aside from intellectual satisfaction or whatnot, it also affords self-expression, which can be very gratifying as well and consequently is a strong goal for many game experiences.
+
+I'd like to try making a game that would try staving off that saturation into skill for as long a period as possible. Some sort of real time action game might be one way to go about it. I think one aspect is just a number game of making as many elements interact with other elements as possible, and having a ton of elements, but also making them as lateral/<a href="https://www.youtube.com/watch?v=hW5s5Wb5vo4">orthogonal</a> as I can think to. The hope then is that there will be enough situationality that the exact same scenarios where the same reflexive action is dominant will come up relatively less. It'd still be good to have a fair bit that's completely solvable to allow some comfortable baseline as well as respite between challenges. 
+
+# tangent - rigorousness
+Can creativity be made any more rigorous as a definition? Defining "complex" would be necessary first.. Maybe what could be said to some degree is if all decisions in a space can be represented in a drawn flowchart decision tree then it's definitely not complex, but naturally writing has the sometimes inconvenient ability to enclose any concept of arbitrary magnitude (consider the flowchart: start -> make an interesting painting), so that's not very helpful in the end. So there needs to be some sort of definition for triviality.. what makes a step "straightforward" or not, and how much. Or conversely a definition for how lateral a notion is. That seems to be the crux of it. Can that really be made rigorous? Probably not very robustly.
+
+What about the notion of a space itself? One lead is whether spaces should exist purely only within the context of an individual or whether it's more of a constant structure that agents then interface with. Maybe a space is taken to represent one's individual interfacing with it, a field a loose collection of spaces, and a problem a discrete decision that encompasses a collection of elements that the decision is founded on by taking each into consideration. The complexity of a field might be quite different from a space. The space composes all objects that could be used in a problem. A field has to be loose because formally these spaces could be entirely different from each other based on the individuals' prior experience (like the programming example) and be composed of fairly different objects (within desktop application programming, are we just limiting the field to just specific languages and libraries? But there is commonality between all desktop app programming...).
+

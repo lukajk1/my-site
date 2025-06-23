@@ -1,5 +1,5 @@
 publish-date: 1749447269; update-date:null; 
-tags: metaverse, art, speculative;
+tags: metaverse, art, speculative, economic;
 
 title: "metaverse" technical thoughts;
 
