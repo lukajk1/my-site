@@ -1,8 +1,0 @@
-publish-date: null; update-date:null; 
-tags: null;
-
-title: My Title;
-
-<body>
-My body text
- 
