@@ -1,84 +1,56 @@
-
 <!doctype html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <title>lukajk</title>
-    <link rel='icon' type='image/x-icon' href='img/favicon.ico'>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="css/style.css" />
     <style>
         body {
             padding-top: 15vh;
             max-width: 330px;
             margin-bottom: revert;
-            font-size: 16.5px;
         }
-        li {
-            padding: 2px 0;
-        }
-        h1 {
-            margin-top: 30px;
-            font-size: 27px;
-        }
-
-        ol {
-            position: relative;
-            margin-top: -10px;
-            margin-left: -20px;
-        }
+		
+		h3, h4 {
+			margin: 0;
+		}
+			
         #nav {
             margin: 0;
+			margin-top: 10px;
             padding: 0;
-            display: inline;
-            padding-left: 15px;
         }
 
         #nav li {
             display: inline;
-            padding: 0 5px;
+            padding-right: 7px;
         }
-
-        ol {
-            margin: auto;
-        }
+		
+		#nav h3 {
+			display: inline-block;
+		}
         
-        #center {
-            margin-top: 14px;
-            display: flex;
-            align-items: center;
-            gap: 15px; /* Adjust spacing between elements */
-            border: 0px solid black;
-            border-radius: 0px;
-            padding: 15px;
-        }
-        
-        h2 {
-            margin: 0; /* Remove default margin */
-            display: inline;
-        }
-        ul {
-            border-left: 1px dashed gray;
-        }
     </style>
 </head>
 <body>
-
-<img src="img/dog.png" height="80px">
-    <br>
     <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
     <script src="js/shader.js"></script>
 
-<div id="center">   
-    <h3>lukajk</h3> 
-    <ul id="nav">
-        <li><a href='art.html'>art</a></li>
-        <li><a href='software.html'>software</a></li>
-        <li><a href='blog.html'>blog</a></li>
-        <br><br>
-        <li><a href='https://x.com/lukajk9'>twitter</a></li>
-        <li><a href='https://www.youtube.com/@lukajk'>yt</a></li>
-        <!--<li><a href='https://lukajk.itch.io/'>itch.io</a></li>-->
-    </ul>
-</div>
+<img src="img/archive/dog.png" height="105px" width="130px" style="margin-top:5px;">
+
+<ul id="nav">
+<li><h3>luka's website</h3></li>
+	<li><a href="https://x.com/lukaj9807">&#128279;twitter</a></li>
+	<li><a href="https://www.youtube.com/@lukajk">&#128279;youtube</a></li>
+</ul>
+<br>
+<h4>recent posts - <a href="blog.html">view all</a></h4>
+<ul id="recent-blogposts" style="margin-top:9px;"> 
+	<li><a href="#">a blog post</a></li>
+	<li><a href="#">another blog post</a></li>
+	<li><a href="#">another blog post</a></li>
+</ul>
+
 </body>
 </html>
