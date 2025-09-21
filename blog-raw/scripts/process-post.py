@@ -65,37 +65,42 @@ class BlogPostProcessor:
         
         try:
             return time.strftime('%b %d %y %I:%M%p', time.localtime(timestamp)).lower()
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, OSError):
             raise ValueError("Timestamp must be a valid integer")
 
     def get_user_confirmation(self, question: str) -> bool:
         """Get yes/no confirmation from user."""
         while True:
-            response = input(f"{question} (y/n): ").strip().lower()
-            if response in ["y", "yes"]:
-                return True
-            elif response in ["n", "no"]:
+            try:
+                response = input(f"{question} (y/n): ").strip().lower()
+                if response in ["y", "yes"]:
+                    return True
+                elif response in ["n", "no"]:
+                    return False
+                print("Invalid response. Please enter 'y' or 'n'.")
+            except (EOFError, KeyboardInterrupt):
+                print("\nOperation cancelled by user")
                 return False
-            print("Invalid response. Please enter 'y' or 'n'.")
 
     def extract_field(self, content: str, field_name: str) -> str:
         """Extract a field value from post content."""
-        pattern = rf'{field_name}:\s*(.*?);'
+        pattern = rf'{re.escape(field_name)}:\s*(.*?);'
         match = re.search(pattern, content, re.IGNORECASE)
         return match.group(1).strip() if match else "null"
 
     def update_field_in_file(self, filepath: Path, field_name: str, value: int) -> None:
         """Update a field value in the source file."""
         try:
-            with open(filepath, 'r+', encoding='utf-8') as file:
+            with open(filepath, 'r', encoding='utf-8') as file:
                 content = file.read()
-                pattern = rf'{field_name}:\s*.*?;'
-                replacement = f'{field_name}: {value};'
-                content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
-                
-                file.seek(0)
+            
+            escaped_field = re.escape(field_name)
+            pattern = rf'{escaped_field}:\s*.*?;'
+            replacement = f'{field_name}: {value};'
+            content = re.sub(pattern, replacement, content, flags=re.IGNORECASE)
+            
+            with open(filepath, 'w', encoding='utf-8') as file:
                 file.write(content)
-                file.truncate()
             
             print(f"Updated {field_name} in {filepath.name}")
         except IOError as e:
@@ -111,13 +116,19 @@ class BlogPostProcessor:
 
         # Extract metadata
         title = self.extract_field(content, "title")
+        if title == "null":
+            raise ValueError(f"No title found in {filepath}")
+            
         publish_date_str = self.extract_field(content, "publish-date")
         update_date_str = self.extract_field(content, "update-date")
         tags = self.extract_field(content, "tags")
 
-        # Parse timestamps
-        publish_date = None if publish_date_str == "null" else int(publish_date_str)
-        update_date = None if update_date_str == "null" else int(update_date_str)
+        # Parse timestamps with error handling
+        try:
+            publish_date = None if publish_date_str == "null" else int(publish_date_str)
+            update_date = None if update_date_str == "null" else int(update_date_str)
+        except ValueError as e:
+            raise ValueError(f"Invalid timestamp format in {filepath}: {e}")
 
         # Extract body content
         body_match = re.search(r'<body>(.*)', content, re.DOTALL)
@@ -129,11 +140,16 @@ class BlogPostProcessor:
         # Process markdown-style formatting
         body_content = re.sub(r'##(.+)', r'<strong>\1</strong>', body_content)
 
-        # Generate hyphenated title for filename
-        hyphenated_title = re.sub(r'[^a-zA-Z0-9\s-]', '', title).replace(' ', '-').lower()
+        # Generate hyphenated title for filename with better sanitization
+        hyphenated_title = re.sub(r'[^\w\s-]', '', title).strip()
+        hyphenated_title = re.sub(r'[-\s]+', '-', hyphenated_title).lower()
         
-        # Calculate word count
-        word_count = len(body_content.split())
+        if not hyphenated_title:
+            raise ValueError(f"Could not generate valid filename from title: {title}")
+        
+        # Calculate word count from plain text (strip HTML tags)
+        plain_text = re.sub(r'<[^>]+>', ' ', body_content)
+        word_count = len([word for word in plain_text.split() if word.strip()])
 
         # Process tags
         processed_tags = self._process_tags(tags, word_count)
@@ -153,7 +169,9 @@ class BlogPostProcessor:
         if not tags or tags.lower() == "null":
             tag_list = []
         else:
-            tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
+            tag_list = [tag.strip().lower() for tag in tags.split(',') if tag.strip()]
+            # Remove duplicates while preserving order
+            tag_list = list(dict.fromkeys(tag_list))
 
         # Add 'short' tag for posts with 200 words or fewer
         if word_count <= 200 and 'short' not in tag_list:
@@ -180,26 +198,33 @@ class BlogPostProcessor:
         except IOError as e:
             raise RuntimeError(f"Failed to read template: {e}")
 
-        # Prepare replacements
+        # Prepare replacements with proper HTML escaping for title
+        escaped_title = post.title.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
         tag_field = f'<tags:{post.tags}>' if post.tags != "null" else '<tags:>'
         
         replacements = {
-            'blog</a> / ': f'blog</a> / {post.title}',
+            'blog</a> / ': f'blog</a> / {escaped_title}',
             '</p>': f'{post.body}</p>',
             '<word count:> <tags:>': f'<word count:{post.word_count}> {tag_field}',
         }
 
         # Add publish date if available
         if post.publish_date:
-            date_str = self.timestamp_to_readable(post.publish_date)
-            replacements['date-created"></span>'] = f'date-created">{date_str}</span>'
+            try:
+                date_str = self.timestamp_to_readable(post.publish_date)
+                replacements['date-created"></span>'] = f'date-created">{date_str}</span>'
+            except ValueError as e:
+                print(f"Warning: Could not format publish date: {e}")
 
         # Add update date if available
         if post.update_date:
-            update_str = self.timestamp_to_readable(post.update_date)
-            replacements['<i id="last-modified"></i>'] = (
-                f'<br /><i id="last-modified">last modified {update_str}</i>'
-            )
+            try:
+                update_str = self.timestamp_to_readable(post.update_date)
+                replacements['<i id="last-modified"></i>'] = (
+                    f'<br /><i id="last-modified">last modified {update_str}</i>'
+                )
+            except ValueError as e:
+                print(f"Warning: Could not format update date: {e}")
 
         # Apply replacements
         for old, new in replacements.items():
@@ -207,7 +232,7 @@ class BlogPostProcessor:
 
         # Write output file
         output_path = self.blog_output_dir / f"{post.hyphenated_title}.html"
-        self.blog_output_dir.mkdir(exist_ok=True)
+        self.blog_output_dir.mkdir(parents=True, exist_ok=True)
         
         try:
             with open(output_path, 'w', encoding='utf-8') as file:
@@ -220,20 +245,55 @@ class BlogPostProcessor:
         """Run the blog generator script."""
         try:
             if self.gen_blog_script.exists():
-                subprocess.run(["python", str(self.gen_blog_script)], check=True)
+                result = subprocess.run(
+                    ["python", str(self.gen_blog_script)], 
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                    timeout=30
+                )
+                if result.stdout:
+                    print("Blog generator output:", result.stdout.strip())
             else:
                 print(f"Warning: Blog generator script not found: {self.gen_blog_script}")
         except subprocess.CalledProcessError as e:
-            print(f"Error running blog generator: {e}")
+            print(f"Error running blog generator (exit code {e.returncode}): {e.stderr}")
+        except subprocess.TimeoutExpired:
+            print("Blog generator timed out after 30 seconds")
+        except Exception as e:
+            print(f"Unexpected error running blog generator: {e}")
 
     def find_post_file(self, filename: str) -> Path:
         """Find and return the path to a post file."""
-        # Use glob pattern to match the filename in the blog_raw_dir
+        # Check if it's already a full path
+        full_path = Path(filename)
+        if full_path.is_absolute() and full_path.exists():
+            return full_path
+        
+        # First try exact match in blog_raw_dir
+        exact_path = self.blog_raw_dir / filename
+        if exact_path.exists():
+            return exact_path
+        
+        # Then try glob pattern for more flexible matching
         search_pattern = str(self.blog_raw_dir / filename)
         files_found = glob.glob(search_pattern)
         
         if not files_found:
-            raise FileNotFoundError(f"File '{filename}' not found in {self.blog_raw_dir}")
+            # Try case-insensitive search
+            all_files = list(self.blog_raw_dir.glob('*'))
+            matches = [f for f in all_files if f.name.lower() == filename.lower()]
+            if matches:
+                return matches[0]
+            
+            # If it was a full path that doesn't exist, give a specific error
+            if full_path.is_absolute():
+                raise FileNotFoundError(f"File not found at full path: {filename}")
+            
+            raise FileNotFoundError(
+                f"File '{filename}' not found in {self.blog_raw_dir}. "
+                f"Available files: {[f.name for f in all_files if f.is_file()]}"
+            )
         
         return Path(files_found[0])
 
@@ -250,7 +310,10 @@ class BlogPostProcessor:
             # Handle different actions
             if action == PostAction.PUBLISH:
                 if post.is_published:
-                    if not self.get_user_confirmation("Post already published. Overwrite publish date?"):
+                    readable_date = self.timestamp_to_readable(post.publish_date)
+                    if not self.get_user_confirmation(
+                        f"Post already published on {readable_date}. Overwrite publish date?"
+                    ):
                         return False
                 
                 # Set publish date
@@ -260,6 +323,9 @@ class BlogPostProcessor:
                 print(f"Published post: {post.title}")
 
             elif action == PostAction.UPDATE:
+                if not post.is_published:
+                    print("Warning: Updating an unpublished post")
+                
                 # Set update date
                 current_time = self.get_current_timestamp()
                 self.update_field_in_file(file_path, "update-date", current_time)
@@ -280,18 +346,27 @@ class BlogPostProcessor:
         except (FileNotFoundError, ValueError, RuntimeError) as e:
             print(f"Error: {e}")
             return False
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return False
 
     def parse_command_line(self) -> tuple[PostAction, str]:
         """Parse command line arguments or get input from user."""
         if len(sys.argv) == 3:
             action_str, filename = sys.argv[1], sys.argv[2]
         else:
-            user_input = input(
-                "Enter command (publish/update/refresh <filename.txt>): "
-            ).strip().split()
+            try:
+                user_input = input(
+                    "Enter command (publish/update/refresh <filename_or_path>): "
+                ).strip().split(maxsplit=1)  # Split on first space only
+            except (EOFError, KeyboardInterrupt):
+                raise KeyboardInterrupt("Operation cancelled by user")
             
             if len(user_input) != 2:
-                raise ValueError("Invalid command format")
+                raise ValueError(
+                    "Invalid command format. Expected: <action> <filename>\n"
+                    "Actions: publish, update, refresh"
+                )
             
             action_str, filename = user_input[0], user_input[1]
 
@@ -299,7 +374,10 @@ class BlogPostProcessor:
         try:
             action = PostAction(action_str.lower())
         except ValueError:
-            raise ValueError(f"Invalid action: {action_str}. Must be publish, update, or refresh")
+            valid_actions = [action.value for action in PostAction]
+            raise ValueError(
+                f"Invalid action: '{action_str}'. Must be one of: {', '.join(valid_actions)}"
+            )
 
         return action, filename
 
@@ -307,12 +385,20 @@ class BlogPostProcessor:
         """Main entry point for the script."""
         try:
             action, filename = self.parse_command_line()
-            self.process_post(action, filename)
+            success = self.process_post(action, filename)
+            if success:
+                print("Operation completed successfully!")
+            else:
+                sys.exit(1)
         except (ValueError, KeyboardInterrupt) as e:
             if isinstance(e, KeyboardInterrupt):
                 print("\nOperation cancelled by user")
             else:
                 print(f"Error: {e}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            sys.exit(1)
 
 
 def main():
