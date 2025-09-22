@@ -70,6 +70,9 @@ def main():
             user_input = input("Enter a .md filepath (or return to quit): ")
             filepath = user_input.strip('"\'')  # Just strip quotes directly from the input
 
+            if filepath == "":
+                sys.exit(0)
+
             if not os.path.exists(filepath): 
                 print("Error: filepath \"" + filepath + "\" could not be found.")
                 continue
@@ -97,7 +100,9 @@ def main():
                     print("Invalid command. No timestamp was set.")
 
                 new_filepath = slugify(metadata['title']) + '.md'
-                os.rename(filepath, new_filepath)
+                if not os.path.exists(new_filepath):
+                    os.rename(filepath, new_filepath)
+                    print(f"File renamed to: {new_filepath}")
 
                 with open(new_filepath, 'wb') as f:
                     frontmatter.dump(post, f)
