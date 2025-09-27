@@ -1,12 +1,7 @@
 body {
-    max-width: 1074px;
-    margin: auto;
-    margin-bottom: 70px;
-    font-size: 16px;
+    font-size: 17px;
     color: #202020;
     background-color: linen;
-    font-family: monospace;
-    padding: 0 35px;
 }
 
 p {
@@ -15,18 +10,9 @@ p {
 }
 
 img {
-    user-select: none; /* just think it looks like shit when you can drag images accidentally */
+    user-select: none;
 }
 
 ol {
     list-style-type: regular;
-}
-
-#header {
-    margin-top: 45px;
-    /*padding: 0 45px;*/
-}
-
-.card {
-    border: 1px solid gray;
 }
