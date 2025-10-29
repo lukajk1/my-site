@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 
 BLOG_PAGE = "blog.html"
 HOME_PAGE = "index.html"
+numberOfPosts = 7
 
 def update_latest_posts(blog_file, home_file):
     try:
@@ -15,7 +16,7 @@ def update_latest_posts(blog_file, home_file):
             print(f"Error: Could not find 'posts' list in {blog_file}")
             return
             
-        first_five_posts = blog_posts_ul.find_all('li', limit=5)
+        first_five_posts = blog_posts_ul.find_all('li', limit=numberOfPosts)
 
         # Read the home file
         with open(home_file, 'r', encoding='utf-8') as f:
