@@ -11,9 +11,15 @@ HTML_TEMPLATE = "z-html-template.html"
 BLOG_FILE = r"C:\FILESC\cs\my-site\blog.html"
 
 def slugify(text):
+    # Convert to lowercase
     text = text.lower()
-    text = re.sub(r'[^\w\s-]', '', text) 
+    # Remove all non-word characters (except spaces and hyphens)
+    text = re.sub(r'[^\w\s-]', '', text)
+    # Replace all whitespace with a single hyphen
     text = re.sub(r'\s+', '-', text)
+    # Replace any sequence of hyphens with a single hyphen
+    text = re.sub(r'-+', '-', text) # <--- THIS IS THE NEW LINE
+    # Strip leading/trailing hyphens
     return text.strip('-')
 
 def readable_from_unixtime(timestamp):
@@ -21,7 +27,7 @@ def readable_from_unixtime(timestamp):
     return dt_object.strftime("%b %d %y").lower()
 
 def update_blog_index(metadata):
-    """Adds a new post entry to the blog index (blog.html)."""
+    """Adds a new post entry to the blog index (blog.html) if it doesn't already exist."""
     try:
         if not os.path.exists(BLOG_FILE):
             print(f"Error: Blog index file '{BLOG_FILE}' not found. Skipping update.")
@@ -36,16 +42,21 @@ def update_blog_index(metadata):
         html_filename = slugify(metadata['title']) + '.html'
         
         # FIX: Explicitly use forward slash (/) for the HTML link path
-        # os.path.basename(OUTPUT_DIRECTORY).strip('.\\/') evaluates to 'blog'
         blog_dir_name = os.path.basename(OUTPUT_DIRECTORY).strip('.\\/')
         link_path = f"{blog_dir_name}/{html_filename}"
 
+        # The entry string to check for and insert
         new_entry = f'\t<li>{readable_date} - <a href="{link_path}">{metadata["title"]}</a></li>'
         
-        # 3. Find the insertion point and insert the new entry
+        # 3. Check for duplicates and find insertion point
+        if new_entry in blog_content:
+            print(f"Post entry for '{metadata['title']}' already exists in {os.path.basename(BLOG_FILE)}. Skipping insertion.")
+            return
+
         insertion_tag = '<ol reversed id="posts">'
         
         if insertion_tag in blog_content:
+            # Insert the new entry on the next line after the <ol> tag
             new_blog_content = blog_content.replace(
                 insertion_tag, 
                 f'{insertion_tag}\n{new_entry}'
@@ -83,7 +94,16 @@ def generate_html(metadata, content):
             edit_date = readable_from_unixtime(metadata['edited'])
         
             if edit_date != published_date:
+                # CORRECTED: Replace the HTML comment with the "edited" string
                 output_html = output_html.replace("", "edited " + edit_date)
+            else:
+                 # If the edit date is the same as the publish date, remove the comment placeholder
+                 output_html = output_html.replace("", "")
+
+        else:
+            # If no edit date exists, remove the comment placeholder
+            output_html = output_html.replace("", "")
+
 
         os.makedirs(OUTPUT_DIRECTORY, exist_ok=True)
 
