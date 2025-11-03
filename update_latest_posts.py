@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 
 BLOG_PAGE = "blog.html"
 HOME_PAGE = "index.html"
-numberOfPosts = 7
+numberOfPosts = 9
 
 def update_latest_posts(blog_file, home_file):
     try:
